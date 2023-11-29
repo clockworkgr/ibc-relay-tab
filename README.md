@@ -12,11 +12,13 @@ If you want to run this locally:
 First clone the repo. 
 
 Then:
-`cd ibc-relay-tab`
-`pnpm install`
-`pnpm dev`
+```
+cd ibc-relay-tab
+pnpm install
+pnpm dev
+```
 
-Open your browser at the provided URL (usually `localhost:5173`), pick 2 chains to relay between and click `CONNECT` to set up the lighy clients.
+Open your browser at the provided URL (usually `localhost:5173`), pick 2 chains to relay between and click `CONNECT` to set up the light clients.
 
 Click `RELAY` to start relaying packets (you will still have to manually approve signing in Keplr). 
 Click `STOP` to stop relaying.
