@@ -18,7 +18,7 @@
 					<span class="italic">{{formatDate(entry.timestamp)}}</span> - <span class="font-bold">{{ LogLevel[entry.level] }}:</span> {{ entry.entry }}
 					<template v-if="entry.meta">
 						<code class="text-xs">
-							<pre>{{ entry.meta }}</pre>
+							
 						</code>
 					</template>
 				</span>

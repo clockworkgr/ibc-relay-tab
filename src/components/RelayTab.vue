@@ -50,7 +50,8 @@ import { chains, ibc } from 'chain-registry'
 import { computed, ref } from 'vue'
 import ChainDetails from '../components/ChainDetails.vue'
 import DebugLogger from './DebugLogger.vue'
-import { useLogger } from '../composables/useLogger.ts'
+import { useLogger } from '../composables/useLogger'
+import { ibcTransferAddressFilter } from '@/filters'
 
 // Composables
 const { log, logger } = useLogger();
@@ -192,7 +193,7 @@ const setupRelayer = async () => {
         connB,
         logger
       )
-
+      link.value.setFilter(ibcTransferAddressFilter(accountA.address, accountB.address))
       console.group('IBC Link Details')
       console.log(link)
       console.groupEnd()
