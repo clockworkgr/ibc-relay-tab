@@ -1,71 +1,31 @@
-# ibc-relay-tab
+# IBC Relay Tab
 
-This template should help get you started developing with Vue 3 in Vite.
+This project implements a web-based IBC relayer.
 
-## Recommended IDE Setup
+Requirements:
+- a funded Keplr Wallet
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+If you want to run this locally:
+- NodeJS v20
+- pnpm
 
-## Type Support for `.vue` Imports in TS
+First clone the repo. 
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+Then:
+`cd ibc-relay-tab`
+`pnpm install`
+`pnpm dev`
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+Open your browser at the provided URL (usually `localhost:5173`), pick 2 chains to relay between and click `CONNECT` to set up the lighy clients.
 
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+Click `RELAY` to start relaying packets (you will still have to manually approve signing in Keplr). 
+Click `STOP` to stop relaying.
 
-## Customize configuration
+By default, this webapp only relays packets for `ibc.applications.transfer` where the sender or receiver is you as discovered through Keplr.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+If you want to add additional filtering functionality (more exclusive or inclusive or for other IBC apps) you will have to write your own packet filter as defined in https://github.com/confio/ts-relayer/pull/275.
 
-## Project Setup
+The current filter implementation can be found here:
 
-```sh
-pnpm install
-```
 
-### Compile and Hot-Reload for Development
 
-```sh
-pnpm dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-pnpm build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-pnpm test:unit
-```
-
-### Run End-to-End Tests with [Playwright](https://playwright.dev)
-
-```sh
-# Install browsers for the first run
-npx playwright install
-
-# When testing on CI, must build the project first
-pnpm build
-
-# Runs the end-to-end tests
-pnpm test:e2e
-# Runs the tests only on Chromium
-pnpm test:e2e --project=chromium
-# Runs the tests of a specific file
-pnpm test:e2e tests/example.spec.ts
-# Runs the tests in debug mode
-pnpm test:e2e --debug
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
-```
