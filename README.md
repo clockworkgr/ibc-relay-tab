@@ -27,7 +27,11 @@ By default, this webapp only relays packets for `ibc.applications.transfer` wher
 
 If you want to add additional filtering functionality (more exclusive or inclusive or for other IBC apps) you will have to write your own packet filter as defined in https://github.com/confio/ts-relayer/pull/275.
 
-The current filter implementation can be found here:
+The current address-based filter implementation can be found here for guidance:
+https://github.com/clockworkgr/ibc-relay-tab/blob/main/src/filters.ts
+
+and used like so:
+https://github.com/clockworkgr/ibc-relay-tab/blob/main/src/components/RelayTab.vue#L196
 
 
 
