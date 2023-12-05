@@ -128,17 +128,21 @@ const setupRelayer = async () => {
     const [accountA] = await signerA.value.getAccounts()
     const [accountB] = await signerB.value.getAccounts()
     // Create IBC Client for chain A
+    if (!selectedChainA.value.apis?.rpc?.find((x) => x.address.includes('polkachu'))?.address || !selectedChainB.value.apis?.rpc?.find((x) => x.address.includes('polkachu'))?.address || !selectedChainA.value.fees?.fee_tokens[0].low_gas_price || !selectedChainA.value.fees?.fee_tokens[0].denom || !selectedChainB.value.fees?.fee_tokens[0].low_gas_price || !selectedChainB.value.fees?.fee_tokens[0].denom) {
+      throw new Error("Invalid chain configuration or missing Polkachu RPCs");
+    }
     const clientA = await IbcClient.connectWithSigner(
-      selectedChainA.value.apis?.rpc?.find((x) => x.address.includes('polkachu')).address,
+      selectedChainA.value.apis?.rpc?.find((x) => x.address.includes('polkachu'))?.address ?? "",
       signerA.value,
       accountA.address,
-      {
-        prefix: selectedChainA.value.bech32_prefix,
+      {        
         logger: logger,
         gasPrice: GasPrice.fromString(
-          selectedChainA.value.fees?.fee_tokens[0].low_gas_price +
+          selectedChainA.value.fees?.fee_tokens[0].low_gas_price  +
             selectedChainA.value.fees?.fee_tokens[0].denom
-        )
+        ),
+        estimatedBlockTime: 5000,
+        estimatedIndexerTime: 1000
       }
     )
     console.group('IBC Client for chain A')
@@ -146,16 +150,17 @@ const setupRelayer = async () => {
     console.groupEnd()
     // Create IBC Client for chain B
     const clientB = await IbcClient.connectWithSigner(
-      selectedChainB.value.apis?.rpc?.find((x) => x.address.includes('polkachu')).address,
+      selectedChainB.value.apis?.rpc?.find((x) => x.address.includes('polkachu'))?.address ?? "",
       signerB.value,
       accountB.address,
       {
-        prefix: selectedChainB.value.bech32_prefix,
         logger: logger,
         gasPrice: GasPrice.fromString(
           selectedChainB.value.fees?.fee_tokens[0].low_gas_price +
             selectedChainB.value.fees?.fee_tokens[0].denom
-        )
+        ),
+        estimatedBlockTime: 5000,
+        estimatedIndexerTime: 1000
       }
     )
     console.group('IBC Client for chain B')
